@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const SHA256 = (message) => {
+const toSHA256 = (message) => {
   return crypto.createHash("sha256").update(message).digest("hex");
 }
 
@@ -52,7 +52,7 @@ class TTBlock {
 
   calcHash() {
     const datos = JSON.stringify(this.datos);
-    return SHA256(this.hashPrev + this.timestamp + datos + this.nonce);
+    return toSHA256(this.hashPrev + this.timestamp + datos + this.nonce);
   }
 
   mine(dificultad) {
