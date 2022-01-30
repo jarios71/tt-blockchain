@@ -1,0 +1,11 @@
+{
+  "name": "ttblockchain",
+  "version": "1.0.0",
+  "description": "dummy blockchain for educational purposes",
+  "main": "test-tt-chain.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
