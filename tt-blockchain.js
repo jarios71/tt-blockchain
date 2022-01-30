@@ -15,25 +15,18 @@ class TTBlockchain {
   }
 
   add(blk) {
+    // Obtenemos el hash previo
     blk.hashPrev = this.getNewest().hash;
+    // Generamos el hash actual
     blk.hash = blk.calcHash();
+    // Minamos
     blk.mine(this.dificultad);
+    // Bloqueamos el objeto "TTBlock" para su modificación, la blockchain debe ser inmutable
     const freezed = Object.freeze(blk);
+    // Añadimos el bloque a nuestra blockchain
     this.chain.push(freezed);
   }
   
-  validated() {
-    for (let i = 1, l = this.chain.length; i < l; i++) {
-      const blk = this.chain[i];
-      const prev = this.chain[i - 1];
-      if (blk.hash !== blk.calcHash()) {
-        return false;
-      }
-      if (blk.hashPrev !== prev.hash) {
-        return false;
-      }
-    }
-  }
 }
 
 class TTBlock {
