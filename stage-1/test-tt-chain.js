@@ -1,7 +1,16 @@
 const { TTBlock, TTBlockchain } = require('./tt-blockchain.js');
 
-const MyChain = new TTBlockchain();
+const MyTTChain = new TTBlockchain();
 
-MyChain.add(new TTBlock(Date.now().toString(), {datos: 'aprendiendo blockchain'}));
+MyTTChain.add(
+  new TTBlock(Date.now().toString(), 
+    {
+      from: 'crypto-tonterias',
+      to: 'my-friend',
+      amount: 100,
+      notes: 'present'
+    }
+  )
+);
 
-console.log(MyChain.chain);
+console.log(MyTTChain.chain);
