@@ -1,4 +1,7 @@
-const crypto = require("crypto"), SHA256 = message => crypto.createHash("sha256").update(message).digest("hex");
+const crypto = require("crypto");
+const SHA256 = (message) => {
+  return crypto.createHash("sha256").update(message).digest("hex");
+}
 
 class TTBlockchain {
 
