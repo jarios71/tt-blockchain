@@ -1,6 +1,6 @@
-const crypto = require("crypto");
+const crypto = require('crypto');
 const toSHA256 = (message) => {
-  return crypto.createHash("sha256").update(message).digest("hex");
+  return crypto.createHash('sha256').update(message).digest('hex');
 }
 
 class TTBlockchain {
@@ -38,15 +38,15 @@ class TTBlockchain {
 
 class TTBlock {
 
-  constructor(timestamp = "", datos = []) {
+  constructor(timestamp = '', datos = []) {
     this.datos = datos;
-    if (timestamp === "") {
+    if (timestamp === '') {
       this.timestamp = Date.now().toString();
     } else {
       this.timestamp = timestamp;
     }
     this.hash = this.calcHash();
-    this.hashPrev = "";
+    this.hashPrev = '';
     this.nonce = 0;
   }
 
@@ -58,7 +58,7 @@ class TTBlock {
   mine(dificultad) {
 
     // Aquí lo que hacemos es repetir el bucle hasta que la cadena tenga tantos 0 como la longitud de la dificultad
-    while (this.hash.substring(0, dificultad) !== Array(dificultad + 1).join("0")) {
+    while (this.hash.substring(0, dificultad) !== Array(dificultad + 1).join('0')) {
       this.nonce++;
       this.hash = this.calcHash();
     }
