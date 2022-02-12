@@ -8,6 +8,8 @@ class TTBlockchain {
   constructor() {
     this.chain = [new TTBlock(Date.now().toString())]; // Creamos nuestro bloque genesis!
     this.dificultad = 1;
+    this.pendingTransactions = [];
+    this.miningReward = 100;
   }
 
   getNewest() {
@@ -21,7 +23,7 @@ class TTBlockchain {
     const freezed = Object.freeze(blk);
     this.chain.push(freezed);
   }
-  
+
   validated() {
     for (let i = 1, l = this.chain.length; i < l; i++) {
       const blk = this.chain[i];
@@ -34,6 +36,23 @@ class TTBlockchain {
       }
     }
   }
+
+  addTransaction(transaction) {
+    if (!this.validated()) {
+      throw new Error('La Blockchain no es válida!!! :(');
+    }
+    this.pendingTransactions.push(transaction);
+  }
+
+  minePendingTransactions(miningRewardAddress) {
+    // Añadimos una transacción más con la recompensa de la minería
+    this.pendingTransactions.push(new TTTransaction(null, miningRewardAddress, this.miningReward, 'recompensa minería'));
+    // Creamos un bloque con todas las transacciones pendientes
+    this.add(Date.now().toString(), this.pendingTransactions);
+    // Limpiamos las transacciones pendientes
+    this.pendingTransactions = [];
+  }
+
 }
 
 class TTBlock {
@@ -66,4 +85,15 @@ class TTBlock {
 
 }
 
-module.exports = { TTBlock, TTBlockchain };
+class TTTransaction {
+
+  constructor(from, to, amount, notes = '') {
+    this.from = from;
+    this.to = to;
+    this.amount = amount;
+    this.notes = notes;
+  }
+
+}
+
+module.exports = { TTBlockchain, TTBlock, TTTransaction };
